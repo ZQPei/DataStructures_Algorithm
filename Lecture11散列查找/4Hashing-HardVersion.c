@@ -23,6 +23,10 @@ Sample Output:
 1 13 12 21 33 34 38 27 22 32
 */
 
+/*
+以下代码有误，应该用到拓扑排序来做
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
