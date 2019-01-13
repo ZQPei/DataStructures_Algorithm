@@ -13,7 +13,7 @@
 - [Lecture9排序（上）](https://github.com/ZQPei/DataStructures_Algorithm/tree/master/Lecture9%E6%8E%92%E5%BA%8F%EF%BC%88%E4%B8%8A%EF%BC%89)
 - [Lecture10排序（下）](https://github.com/ZQPei/DataStructures_Algorithm/tree/master/Lecture10%E6%8E%92%E5%BA%8F%EF%BC%88%E4%B8%8B%EF%BC%89)
 - [Lecture11散列查找](https://github.com/ZQPei/DataStructures_Algorithm/tree/master/Lecture11%E6%95%A3%E5%88%97%E6%9F%A5%E6%89%BE)
-- Lecture12综合习题选讲
+- [Lecture12综合习题选讲](https://github.com/ZQPei/DataStructures_Algorithm/tree/master/Lecture12%E4%B8%B2%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D)
 
 
 
