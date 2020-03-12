@@ -71,7 +71,6 @@ int main()
     return 0;
 }
 
-/* 你的代码将被嵌在这里 */
 List ReadInput(){
     int N;
     int i;
@@ -81,7 +80,7 @@ List ReadInput(){
     L->Last = N;  // Last表示线性表的长度
     for(i=0;i<N;i++){
         scanf("%d", &tmp);
-        L->Data[i] = tmp;
+        L->Data[i+1] = tmp;
     }
     // for(i=0;i<L->Last;i++){
     //     printf("%d ",L->Data[i]);
@@ -93,23 +92,25 @@ void FreeList(List L){
     free(L);
 }
 
+
+/* 你的代码将被嵌在这里 */
 Position BinarySearch( List L, ElementType X ){
-    int len = L->Last;
-    int start=0;
-    int end=len-1;
-    int mid;
-    int found=0;
-    while( end >= start ){
-        mid = (int)((start+end)/2);
-        if (L->Data[mid] == X){
-            found=1;
+    Position left = 1, right = L->Last;
+    Position pos = NotFound;
+
+    while(right >= left){
+        Position mid = (left + right) / 2;
+        if(L->Data[mid] == X){
+            pos = mid;
             break;
-        }else if(L->Data[mid] < X){
-            start = mid +1;
-        }else if(L->Data[mid] > X){
-            end = mid -1;
+        }
+        else if(L->Data[mid] > X){
+            right = mid-1;
+        }
+        else if(L->Data[mid] < X){
+            left = mid+1;
         }
     }
-    if(!found) return NotFound;
-    else return mid+1;
+
+    return pos;
 }

@@ -44,6 +44,7 @@ typedef PtrToNode List;
 
 List Read(); /* 细节在此不表 */
 void Print( List L ); /* 细节在此不表；空链表将输出NULL */
+void Free( List L); /* 细节在此不表；空链表将输出NULL */
 
 List Merge( List L1, List L2 );
 
@@ -56,86 +57,93 @@ int main()
     Print(L);
     Print(L1);
     Print(L2);
+    Free(L);
+    Free(L1);
+    Free(L2);
     return 0;
 }
 
-/* 你的代码将被嵌在这里 */
 List Read(){
+    // 题目中标注了是带头结点的链表，也就是说，不管链表是否为空，一定有一个头结点！
     int N,i;
     ElementType tmp;
     scanf("%d", &N);
-    List L=NULL;
-    PtrToNode tail=NULL;
+    PtrToNode head=(PtrToNode)malloc(sizeof(struct Node));
+    head->Data = 0;
+    head->Next = NULL;
+    PtrToNode tail=head;
+    List L = head;
     for(i=0;i<N;i++){
         scanf("%d", &tmp);
         PtrToNode pNewNode = (PtrToNode)malloc(sizeof(struct Node));
         pNewNode->Data = tmp;
         pNewNode->Next = NULL;
-        if(i==0){
-            L=tail=pNewNode;
-        }else{
-            tail->Next = pNewNode;
-            tail = pNewNode;
-        }
+
+        tail->Next = pNewNode;
+        tail = pNewNode;
+
     }
     return L;
 }
 
 void Print( List L ){
-    PtrToNode tmp=L;
+    PtrToNode tmp=L->Next;
+
+    if(tmp==NULL){
+        printf("NULL\n");
+        return;
+    }
+
     int isFirst = 1;
     while(tmp){
         if(!isFirst){
             printf(" "); 
-            isFirst=0;
         }
         printf("%d",tmp->Data);
+        isFirst=0;
         tmp=tmp->Next;
     }
     printf("\n");
 }
 
+void Free( List L ){
+    PtrToNode tmp = NULL;
+    while(L){
+        tmp = L;
+        L = L->Next;
+        free(tmp);
+    }
+}
+
+/* 你的代码将被嵌在这里 */
 List Merge( List L1, List L2 ){
-    List L=NULL;
-    PtrToNode tail=NULL;
-    // 边界条件判断
-    if(L1==NULL) {
-        L=L2;
-        return L;
-    }else if(L2==NULL){
-        L=L1;
-        return L;
-    }else{
-        if(L1->Data<=L2->Data){
-            L=tail=L1;
-            L1=L1->Next;
-        }else if(L1->Data>L2->Data){
-            L=tail=L2;
-            L2=L2->Next;
+    List L = (PtrToNode)malloc(sizeof(struct Node));
+    L->Data = 0;
+    L->Next = NULL;
+    PtrToNode tmp = NULL, last = L;
+    PtrToNode p1 = L1->Next, p2 = L2->Next;
+    while(p1 && p2){
+        if (p1->Data < p2->Data){
+            tmp = p1;
+            p1 = p1->Next;
         }
-    }
-    // Print(L);
-    // 主要循环， 时间复杂度为 o(max(N1,N2))
-    while(L1 || L2){
-        if(L1==NULL){
-            tail->Next=L2;
-            L2=NULL;
-            break;
-        }else if(L2==NULL){
-            tail->Next=L1;
-            L1=NULL;
-            break;
-        }else{
-            if(L1->Data<=L2->Data){
-                tail->Next=L1;
-                tail=tail->Next;
-                L1=L1->Next;
-            }else if(L1->Data>L2->Data){
-                tail->Next=L2;
-                tail=tail->Next;
-                L2=L2->Next;
-            }
+        else{
+            tmp = p2;
+            p2 = p2->Next;
         }
+
+        last->Next = tmp;
+        last = last->Next;
     }
+
+    if(p1)
+        last->Next = p1;
+    if(p2)
+        last->Next = p2;
+
+
+    L1->Next = NULL;
+    L2->Next = NULL;
+
     return L;
 }

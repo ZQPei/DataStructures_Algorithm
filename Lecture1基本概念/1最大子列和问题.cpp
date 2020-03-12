@@ -26,42 +26,60 @@
 
 */
 
-#include <stdio.h>
+#include <cstdio>
 
-#define MAXSIZE 100000
+#define DEBUG 0
 
-void readList(int List[], int K){
-    int i;
-    for(i=0;i<K;i++){
-        scanf("%d", &List[i]);
+
+int* GetInput(int length){
+    if(length<=0)
+        return nullptr;
+
+    int *data = new int[length];
+
+    for(int i=0;i<length;++i){
+        scanf("%d", data+i);
     }
+
+    if(DEBUG){
+        printf("%u\n",length);
+        for(int i=0;i<length;++i){
+            printf("%d ", data[i]);
+        }
+        printf("\n");
+    }
+
+    return data;
 }
 
-int getMaxSubSum(int List[], int K){
-    /*
-    时间复杂度O(N)
-    */
-    int i;
-    int tmpSum=0;
-    int maxSum=0;
-    for(i=0;i<K;i++){
-        tmpSum += List[i];
-        if(tmpSum>maxSum){
-            maxSum = tmpSum;
-        }else if(tmpSum<0){
-            tmpSum = 0;
+
+int GetMaxSubseqSum(int *data, int length){
+    if(data == nullptr || length<=0)
+        return 0;
+
+    int max_sum=0, tmp_sum=0;
+    for(int i=0;i<length;++i){
+        tmp_sum += data[i];
+        if(tmp_sum>max_sum){
+            max_sum = tmp_sum;
+        }
+        else if(tmp_sum<0){
+            tmp_sum = 0;
         }
     }
-    return maxSum;
+
+    return max_sum;
 }
 
-int main(int argc, char const *argv[])
-{
-    int K;
-    int List[MAXSIZE] = {0,};
+
+int main(){
+    int K=0;
     scanf("%d", &K);
-    readList(List, K);
-    int res = getMaxSubSum(List, K);
-    printf("Maximum subsequence sum = %d\n",res);
+    int *data = GetInput(K);
+
+    int max_sum = GetMaxSubseqSum(data, K);
+    printf("%d",max_sum);
+    
+    delete []data;
     return 0;
 }
