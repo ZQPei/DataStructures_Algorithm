@@ -118,6 +118,8 @@ void InorderTraversal( BinTree BT ){
     }
 }
 
+/* 你的代码将被嵌在这里 */
+
 BinTree NewTreeNode(ElementType X){
     BinTree newNode = (BinTree)malloc(sizeof(struct TNode));
     newNode->Data = X;
@@ -177,6 +179,9 @@ Position Find( BinTree BST, ElementType X ){
     return tmp;
 }
 Position FindMin( BinTree BST ){
+    if(!BST)
+        return BST;
+
     BinTree tmp = BST;
     while(tmp->Left){
         tmp = tmp->Left;
@@ -184,6 +189,9 @@ Position FindMin( BinTree BST ){
     return tmp;
 }
 Position FindMax( BinTree BST ){
+    if(!BST)
+        return BST;
+
     BinTree tmp = BST;
     while(tmp->Right){
         tmp = tmp->Right;

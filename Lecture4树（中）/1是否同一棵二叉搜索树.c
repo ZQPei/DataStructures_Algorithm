@@ -57,8 +57,8 @@ int main(int argc, char const *argv[])
         scanf("%d", &K);
         bst1 = CreateBST(N);
         for(k=0;k<K;k++){
-            if(CheckBST(bst1, N)) printf("YES\n");
-            else printf("NO\n");
+            if(CheckBST(bst1, N)) printf("Yes\n");
+            else printf("No\n");
             ResetFlag(bst1);
         }
         scanf("%d", &N);
